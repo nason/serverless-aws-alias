@@ -11,7 +11,7 @@ const path = require('path');
 const AWSAlias = require('../index');
 
 const serverlessPath = getInstalledPathSync('serverless', { local: true });
-const AwsProvider = require(`${serverlessPath}/lib/plugins/aws/provider/awsProvider`);
+const AwsProvider = require(`${serverlessPath}/lib/plugins/aws/provider`);
 const Serverless = require(`${serverlessPath}/lib/Serverless`);
 
 chai.use(require('chai-as-promised'));
@@ -82,7 +82,7 @@ describe('createAliasStack', () => {
 				expect(providerRequestStub).to.have.been.calledOnce,
 				expect(monitorStackStub).to.have.been.calledOnce,
 				expect(providerRequestStub).to.have.been
-					.calledWithExactly('CloudFormation', 'createStack', expectedCFData, 'myStage', 'us-east-1'),
+					.calledWithExactly('CloudFormation', 'createStack', expectedCFData),
 				expect(monitorStackStub).to.have.been
 					.calledWithExactly('create', requestResult)
 			]));
@@ -117,7 +117,7 @@ describe('createAliasStack', () => {
 			.then(() => BbPromise.all([
 				expect(providerRequestStub).to.have.been.calledOnce,
 				expect(providerRequestStub).to.have.been
-					.calledWithExactly('CloudFormation', 'createStack', expectedCFData, 'myStage', 'us-east-1'),
+					.calledWithExactly('CloudFormation', 'createStack', expectedCFData),
 			]));
 		});
 
@@ -208,7 +208,7 @@ describe('createAliasStack', () => {
 				expect(providerRequestStub).to.have.been.calledOnce,
 				expect(createAliasStub).to.not.have.been.called,
 				expect(providerRequestStub).to.have.been
-					.calledWithExactly('CloudFormation', 'describeStackResources', expectedCFData, 'myStage', 'us-east-1'),
+					.calledWithExactly('CloudFormation', 'describeStackResources', expectedCFData),
 			]));
 		});
 

@@ -10,7 +10,7 @@ const sinon = require('sinon');
 const AWSAlias = require('../index');
 
 const serverlessPath = getInstalledPathSync('serverless', { local: true });
-const AwsProvider = require(`${serverlessPath}/lib/plugins/aws/provider/awsProvider`);
+const AwsProvider = require(`${serverlessPath}/lib/plugins/aws/provider`);
 const Serverless = require(`${serverlessPath}/lib/Serverless`);
 
 chai.use(require('chai-as-promised'));
@@ -73,7 +73,7 @@ describe('uploadAliasArtifacts', () => {
 			.then(() => BbPromise.all([
 				expect(providerRequestStub).to.have.been.calledOnce,
 				expect(providerRequestStub).to.have.been
-					.calledWithExactly('S3', 'putObject', expectedData, 'myStage', 'us-east-1'),
+					.calledWithExactly('S3', 'putObject', expectedData),
 			]));
 		});
 
@@ -107,7 +107,7 @@ describe('uploadAliasArtifacts', () => {
 			.then(() => BbPromise.all([
 				expect(providerRequestStub).to.have.been.calledOnce,
 				expect(providerRequestStub).to.have.been
-					.calledWithExactly('S3', 'putObject', expectedData, 'myStage', 'us-east-1'),
+					.calledWithExactly('S3', 'putObject', expectedData),
 			]));
 		});
 
@@ -138,7 +138,7 @@ describe('uploadAliasArtifacts', () => {
 			.then(() => BbPromise.all([
 				expect(providerRequestStub).to.have.been.calledOnce,
 				expect(providerRequestStub).to.have.been
-					.calledWithExactly('S3', 'putObject', expectedData, 'myStage', 'us-east-1'),
+					.calledWithExactly('S3', 'putObject', expectedData),
 			]));
 		});
 

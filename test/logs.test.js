@@ -8,7 +8,7 @@ const sinon = require('sinon');
 const AWSAlias = require('../index');
 
 const serverlessPath = getInstalledPathSync('serverless', { local: true });
-const AwsProvider = require(`${serverlessPath}/lib/plugins/aws/provider/awsProvider`);
+const AwsProvider = require(`${serverlessPath}/lib/plugins/aws/provider`);
 const Serverless = require(`${serverlessPath}/lib/Serverless`);
 
 chai.use(require('chai-as-promised'));
@@ -220,9 +220,7 @@ describe('logs', () => {
 						descending: true,
 						limit: 50,
 						orderBy: 'LastEventTime',
-					},
-					awsAlias.options.stage,
-					awsAlias.options.region
+					}
 				),
 				expect(logStreamNames).to.have.lengthOf(2),
 				expect(logStreamNames[0])
@@ -284,9 +282,7 @@ describe('logs', () => {
 						descending: true,
 						limit: 50,
 						orderBy: 'LastEventTime',
-					},
-					awsAlias.options.stage,
-					awsAlias.options.region
+					}
 				),
 				expect(logStreamNames).to.have.lengthOf(4),
 			]));
@@ -355,9 +351,7 @@ describe('logs', () => {
 						logStreamNames: logStreamNamesMock,
 						filterPattern: 'error',
 						startTime: 1475269200000,
-					},
-					awsAlias.options.stage,
-					awsAlias.options.region
+					}
 				),
 			]));
 		});
@@ -405,9 +399,7 @@ describe('logs', () => {
 							logStreamNames: logStreamNamesMock,
 							startTime: 1287532800000,
 							filterPattern: 'error',
-						},
-						awsAlias.options.stage,
-						awsAlias.options.region
+						}
 					),
 				]));
 		});
@@ -470,7 +462,7 @@ describe('logs', () => {
 				expect(formatter(testEvent)).to.be.a('string')
 					.that.contains('This is a test message');
 				expect(formatter(testEvent)).to.be.a('string')
-					.that.contains('2017-07-09 00:00:00.000 (+');
+					.that.contains('2017-07-09 00:00:00.000 (');
 			});
 		});
 	});
